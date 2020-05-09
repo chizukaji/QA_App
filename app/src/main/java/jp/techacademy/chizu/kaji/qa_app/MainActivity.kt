@@ -1,23 +1,29 @@
 package jp.techacademy.chizu.kaji.qa_app
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import android.content.Intent
-import android.support.v7.widget.Toolbar
 
-import kotlinx.android.synthetic.main.activity_main.*
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-class MainActivity : AppCompatActivity() {
+    private lateinit var mToolbar: Toolbar
+    private var mGenre = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        mToolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mToolbar)
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { _ ->
@@ -28,6 +34,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, drawer, mToolbar, R.string.app_name, R.string.app_name)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -44,5 +58,27 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.nav_hobby) {
+            mToolbar.title = "趣味"
+            mGenre = 1
+        } else if (id == R.id.nav_life) {
+            mToolbar.title = "生活"
+            mGenre = 2
+        } else if (id == R.id.nav_health) {
+            mToolbar.title = "健康"
+            mGenre = 3
+        } else if (id == R.id.nav_compter) {
+            mToolbar.title = "コンピューター"
+            mGenre = 4
+        }
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer.closeDrawer(GravityCompat.START)
+        return true
     }
 }
