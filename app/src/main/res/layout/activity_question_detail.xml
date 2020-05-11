@@ -25,4 +25,15 @@
         android:layout_margin="16dp"
         android:src="@drawable/plus" />
 
+    <Button
+        android:id="@+id/favorite"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:text="お気に入りに追加"
+        android:background="#ee82ee"
+        android:textColor="@color/colorButtonText"
+        android:layout_alignBottom="@id/fab"
+        android:layout_alignParentStart="true"/>
+
+
 </RelativeLayout>

@@ -1,8 +1,10 @@
 package jp.techacademy.chizu.kaji.qa_app
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ListView
@@ -89,6 +91,27 @@ class QuestionDetailActivity : AppCompatActivity() {
                 intent.putExtra("question",mQuestion)
                 startActivity(intent)
             }
+        }
+
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            favorite.visibility = View.INVISIBLE
+        }
+
+
+
+        favorite.setOnClickListener { view ->
+
+            var kari = 0
+
+            favorite.text = "★ お気に入り"
+            favorite.setBackgroundColor(Color.RED)
+            Snackbar.make(view, "お気に入りに追加されました", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+
+            val database = FirebaseDatabase.getInstance()
+            val ref = database.getReference("favo")
+            ref.setValue("on")
+
         }
 
         val dataBaseReference = FirebaseDatabase.getInstance().reference

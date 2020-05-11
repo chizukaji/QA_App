@@ -91,7 +91,7 @@ class QuestionSendActivity : AppCompatActivity(), View.OnClickListener, Database
     }
 
     override fun onClick(v: View) {
-        if (v === imageView) {
+        if (v == imageView) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -106,7 +106,7 @@ class QuestionSendActivity : AppCompatActivity(), View.OnClickListener, Database
             } else {
                 showChooser()
             }
-        } else if (v === sendButton) {
+        } else if (v == sendButton) {
             val im = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
