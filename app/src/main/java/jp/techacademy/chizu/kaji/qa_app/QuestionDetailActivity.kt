@@ -109,8 +109,13 @@ class QuestionDetailActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
 
             val database = FirebaseDatabase.getInstance()
-            val ref = database.getReference("favo")
-            ref.setValue("on")
+            val ref = database.getReference("users")
+
+            val data = HashMap<String, String>()
+
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+            ref.child(uid).child("favo").setValue(mQuestion.toString())
 
         }
 

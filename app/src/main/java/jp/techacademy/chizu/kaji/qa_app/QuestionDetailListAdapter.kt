@@ -10,7 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
-class QuestionDetailListAdapter(context: Context, private val mQuestion: Question) : BaseAdapter() {
+class QuestionDetailListAdapter(context: Context, private val mQustion: Question) : BaseAdapter() {
     companion object {
         private val TYPE_QUESTION = 0
         private val TYPE_ANSWER = 1
@@ -23,7 +23,7 @@ class QuestionDetailListAdapter(context: Context, private val mQuestion: Questio
     }
 
     override fun getCount(): Int {
-        return 1 + mQuestion.answers.size
+        return 1 + mQustion.answers.size
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -39,7 +39,7 @@ class QuestionDetailListAdapter(context: Context, private val mQuestion: Questio
     }
 
     override fun getItem(position: Int): Any {
-        return mQuestion
+        return mQustion
     }
 
     override fun getItemId(position: Int): Long {
@@ -53,8 +53,8 @@ class QuestionDetailListAdapter(context: Context, private val mQuestion: Questio
             if (convertView == null) {
                 convertView = mLayoutInflater!!.inflate(R.layout.list_question_detail, parent, false)!!
             }
-            val body = mQuestion.body
-            val name = mQuestion.name
+            val body = mQustion.body
+            val name = mQustion.name
 
             val bodyTextView = convertView.findViewById<View>(R.id.bodyTextView) as TextView
             bodyTextView.text = body
@@ -62,7 +62,7 @@ class QuestionDetailListAdapter(context: Context, private val mQuestion: Questio
             val nameTextView = convertView.findViewById<View>(R.id.nameTextView) as TextView
             nameTextView.text = name
 
-            val bytes = mQuestion.imageBytes
+            val bytes = mQustion.imageBytes
             if (bytes.isNotEmpty()) {
                 val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
                 val imageView = convertView.findViewById<View>(R.id.imageView) as ImageView
@@ -73,7 +73,7 @@ class QuestionDetailListAdapter(context: Context, private val mQuestion: Questio
                 convertView = mLayoutInflater!!.inflate(R.layout.list_answer, parent, false)!!
             }
 
-            val answer = mQuestion.answers[position - 1]
+            val answer = mQustion.answers[position - 1]
             val body = answer.body
             val name = answer.name
 
