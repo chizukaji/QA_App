@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val uid = map["uid"] ?: ""
             val imageString = map["image"] ?: ""
             val bytes =
-                    if (imageString.isNotEmpty()) {
-                        Base64.decode(imageString, Base64.DEFAULT)
-                    } else {
-                        byteArrayOf()
-                    }
+                if (imageString.isNotEmpty()) {
+                    Base64.decode(imageString, Base64.DEFAULT)
+                } else {
+                    byteArrayOf()
+                }
 
             val answerArrayList = ArrayList<Answer>()
             val answerMap = map["answers"] as Map<String, String>?
