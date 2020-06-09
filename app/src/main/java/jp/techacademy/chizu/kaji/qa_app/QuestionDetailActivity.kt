@@ -74,6 +74,7 @@ class QuestionDetailActivity : AppCompatActivity() {
 
         title = mQuestion.title
 
+
         mAdapter = QuestionDetailListAdapter(this, mQuestion)
         listView.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
@@ -102,6 +103,7 @@ class QuestionDetailActivity : AppCompatActivity() {
         favorite.setOnClickListener { view ->
 
             var kari = 0
+            val user = FirebaseAuth.getInstance().currentUser!!.uid
 
             favorite.text = "★ お気に入り"
             favorite.setBackgroundColor(Color.RED)
@@ -109,13 +111,11 @@ class QuestionDetailActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
 
             val database = FirebaseDatabase.getInstance()
-            val ref = database.getReference("users")
+            val ref = database.getReference("favotui")
 
             val data = HashMap<String, String>()
 
-            val uid = FirebaseAuth.getInstance().currentUser!!.uid
-
-            ref.child(uid).child("favo").setValue(mQuestion.toString())
+            ref.child(user.toString()).child(mQuestion.uid.toString()).setValue(mQuestion.title.toString())
 
         }
 
